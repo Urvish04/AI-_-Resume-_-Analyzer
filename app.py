@@ -2,8 +2,9 @@ import streamlit as st
 
 st.title("AI Resume Analyzer")
 
-resume_text = st.text_area("Paste Resume Text")
+st.write("Compare your resume skills with a job description.")
 
+resume_text = st.text_area("Paste Resume Text")
 job_description = st.text_area("Paste Job Description")
 
 if st.button("Analyze"):
@@ -20,6 +21,7 @@ if st.button("Analyze"):
     job_skills = []
 
     for skill in skills:
+
         if skill.lower() in resume_text.lower():
             resume_skills.append(skill)
 
@@ -38,8 +40,15 @@ if st.button("Analyze"):
     st.subheader("Match Score")
     st.write(f"{match_score:.2f}%")
 
-    st.subheader("Resume Skills")
+    st.progress(match_score / 100)
+
+    st.subheader("Skills Found In Resume")
     st.write(resume_skills)
 
-    st.subheader("Missing Skills")
-    st.write(list(missing_skills))
+    st.subheader("Recommended Skills To Learn")
+
+    if missing_skills:
+        for skill in missing_skills:
+            st.write(f"• {skill}")
+    else:
+        st.success("Your resume matches all required skills!")
