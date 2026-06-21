@@ -1,4 +1,4 @@
-# AI Resume Analyzer
+8# AI Resume Analyzer
 
 ## About the Project
 
@@ -45,4 +45,4 @@ This project helped me learn:
 ## Author
 
 Urmish Makavana
-B.Sc. Artificial Intelligence & Machine Learning
+
