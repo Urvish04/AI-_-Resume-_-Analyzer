@@ -1,42 +1,56 @@
 import streamlit as st
 
+
+def load_skills():
+    with open("skills_database.txt", "r") as file:
+        skills = [line.strip() for line in file.readlines()]
+    return skills
+
+
+def find_skills(text, skills):
+    found_skills = []
+
+    for skill in skills:
+        if skill.lower() in text.lower():
+            found_skills.append(skill)
+
+    return found_skills
+
+
+def calculate_match_score(resume_skills, job_skills):
+    common_skills = set(resume_skills).intersection(set(job_skills))
+
+    if len(job_skills) > 0:
+        score = (len(common_skills) / len(job_skills)) * 100
+    else:
+        score = 0
+
+    missing_skills = set(job_skills) - set(resume_skills)
+
+    return score, missing_skills
+
+
 st.title("AI Resume Analyzer")
 
 st.write("Compare your resume skills with a job description.")
 
 resume_text = st.text_area("Paste Resume Text")
+
 job_description = st.text_area("Paste Job Description")
 
 if st.button("Analyze"):
 
-    # Load skills from skills_database.txt
-    with open("skills_database.txt", "r") as file:
-        skills = [line.strip() for line in file.readlines()]
+    skills = load_skills()
 
-    resume_skills = []
-    job_skills = []
+    resume_skills = find_skills(resume_text, skills)
 
-    # Find skills in resume and job description
-    for skill in skills:
+    job_skills = find_skills(job_description, skills)
 
-        if skill.lower() in resume_text.lower():
-            resume_skills.append(skill)
+    match_score, missing_skills = calculate_match_score(
+        resume_skills,
+        job_skills
+    )
 
-        if skill.lower() in job_description.lower():
-            job_skills.append(skill)
-
-    # Calculate matching skills
-    common_skills = set(resume_skills).intersection(set(job_skills))
-
-    if len(job_skills) > 0:
-        match_score = (len(common_skills) / len(job_skills)) * 100
-    else:
-        match_score = 0
-
-    # Find missing skills
-    missing_skills = set(job_skills) - set(resume_skills)
-
-    # Display results
     st.subheader("Match Score")
     st.write(f"{match_score:.2f}%")
 
