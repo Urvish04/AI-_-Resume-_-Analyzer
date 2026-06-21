@@ -1,0 +1,35 @@
+Python
+Machine Learning
+Deep Learning
+NLP
+Data Analysis
+SQL
+Power BI
+Tableau
+Git
+GitHub
+Docker
+AWS
+Azure
+TensorFlow
+PyTorch
+Computer Vision
+Java
+C++
+JavaScript
+Streamlit
+Flask
+Django
+React
+Node.js
+MongoDB
+PostgreSQL
+Pandas
+NumPy
+Scikit-Learn
+Data Science
+Artificial Intelligence
+Cloud Computing
+Kubernetes
+Linux
+ChatGPT

@@ -9,17 +9,14 @@ job_description = st.text_area("Paste Job Description")
 
 if st.button("Analyze"):
 
-    skills = [
-        "Python", "Machine Learning", "Deep Learning", "NLP",
-        "Data Analysis", "SQL", "Power BI", "Tableau",
-        "Git", "GitHub", "Docker", "AWS", "Azure",
-        "TensorFlow", "PyTorch", "Computer Vision",
-        "Java", "C++", "JavaScript", "Streamlit"
-    ]
+    # Load skills from skills_database.txt
+    with open("skills_database.txt", "r") as file:
+        skills = [line.strip() for line in file.readlines()]
 
     resume_skills = []
     job_skills = []
 
+    # Find skills in resume and job description
     for skill in skills:
 
         if skill.lower() in resume_text.lower():
@@ -28,6 +25,7 @@ if st.button("Analyze"):
         if skill.lower() in job_description.lower():
             job_skills.append(skill)
 
+    # Calculate matching skills
     common_skills = set(resume_skills).intersection(set(job_skills))
 
     if len(job_skills) > 0:
@@ -35,8 +33,10 @@ if st.button("Analyze"):
     else:
         match_score = 0
 
+    # Find missing skills
     missing_skills = set(job_skills) - set(resume_skills)
 
+    # Display results
     st.subheader("Match Score")
     st.write(f"{match_score:.2f}%")
 
